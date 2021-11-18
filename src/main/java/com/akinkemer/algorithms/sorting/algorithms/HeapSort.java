@@ -2,8 +2,24 @@ package com.akinkemer.algorithms.sorting.algorithms;
 
 public class HeapSort implements SortingAlgorithm {
 
-    public void sort(int[] a) {
-        heapSort(a);
+    public void sort(int[] array) {
+        heapSort(array);
+    }
+
+    private void heapSort(int[] array) {
+        buildMaxHeap(array);
+
+        int heapSize = array.length;
+
+        for (int i = array.length - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapSize--;
+
+            maxHeapify(array, 0, heapSize);
+        }
     }
 
     private int left(int i) {
@@ -14,57 +30,35 @@ public class HeapSort implements SortingAlgorithm {
         return 2 * i + 2;
     }
 
-    private static int parent(int i) {
-        return (i - 1) / 2;
+    private void buildMaxHeap(int[] array) {
+        int heapSize = array.length;
+
+        for (int i = array.length / 2 - 1; i >= 0; i--) {
+            maxHeapify(array, i, heapSize);
+        }
     }
 
-    private void maxHeapify(int[] a, int i, int heapSize) {
+    private void maxHeapify(int[] array, int i, int heapSize) {
         int l = left(i);
         int r = right(i);
         int largest;
 
-        if (l < heapSize && a[l] > a[i]) {
+        if (l < heapSize && array[l] > array[i]) {
             largest = l;
         } else {
             largest = i;
         }
 
-        if (r < heapSize && a[r] > a[largest]) {
+        if (r < heapSize && array[r] > array[largest]) {
             largest = r;
         }
 
         if (largest != i) {
-            int temp = a[i];
-            a[i] = a[largest];
-            a[largest] = temp;
+            int temp = array[i];
+            array[i] = array[largest];
+            array[largest] = temp;
 
-            maxHeapify(a, largest, heapSize);
+            maxHeapify(array, largest, heapSize);
         }
     }
-
-    private void buildMaxHeap(int[] a) {
-        int heapSize = a.length;
-
-        for (int i = a.length / 2 - 1; i >= 0; i--) {
-            maxHeapify(a, i, heapSize);
-        }
-    }
-
-    private void heapSort(int[] a) {
-        buildMaxHeap(a);
-
-        int heapSize = a.length;
-
-        for (int i = a.length - 1; i > 0; i--) {
-            int temp = a[0];
-            a[0] = a[i];
-            a[i] = temp;
-
-            heapSize--;
-
-            maxHeapify(a, 0, heapSize);
-        }
-
-    }
-
 }
