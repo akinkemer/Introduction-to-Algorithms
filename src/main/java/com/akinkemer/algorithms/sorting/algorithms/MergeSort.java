@@ -1,16 +1,13 @@
 package com.akinkemer.algorithms.sorting.algorithms;
 
 public class MergeSort implements SortingAlgorithm {
-    /**
-     * Sorts the array in-place in non-decreasing order.
-     * @param array the array to be sorted
-     */
+
     @Override
     public void sort(int[] array) {
         mergeSort(array, 0, array.length - 1);
     }
 
-    private static void mergeSort(int[] array, int p, int r) {
+    private void mergeSort(int[] array, int p, int r) {
         if (p < r) {
             int q = (p + r) / 2;
             mergeSort(array, p, q);
@@ -19,7 +16,7 @@ public class MergeSort implements SortingAlgorithm {
         }
     }
 
-    private static void merge(int[] array, int p, int q, int r) {
+    private void merge(int[] array, int p, int q, int r) {
         int n1 = q - p + 1;
         int n2 = r - q;
         int[] L = new int[n1 + 1];
